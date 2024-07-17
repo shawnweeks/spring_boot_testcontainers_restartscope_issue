@@ -1,3 +1,5 @@
-Really simple example showing how the DynamicPropertyRegistry doesn't get set on dev tools reload. Simply startup the app and verify that you see the random redis port at http://localhost:8080 and then save a file so dev tools does a reload. It will error because the properties are no longer set.
+Really simple example showing how the DynamicPropertyRegistry doesn't get set on dev tools reload.
 
-`./mvnw spring-boot:test-run`
+### To Reproduce
+1. In one window run `./mvnw spring-boot:test-run` and wait for the application to start.
+2. In another window run `./mvnw compile` and wait for dev tools to rebuild. Notice how the application no longer starts.
