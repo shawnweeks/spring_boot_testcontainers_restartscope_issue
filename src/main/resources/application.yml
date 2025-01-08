@@ -1,0 +1,11 @@
+logging:
+  file.name: spring-boot.log
+  level:
+    org.springframework: TRACE
+
+app:
+  datasource:
+    demo:
+      jdbc-url: ${JDBC_URL}
+      username: ${JDBC_USERNAME}
+      password: ${JDBC_PASSWORD}

@@ -1,21 +1,22 @@
 package com.example.demo;
 
-import org.springframework.beans.factory.annotation.Value;
+import javax.sql.DataSource;
+
+import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class DemoController {
 
-    @Value("${MY_REDIS_HOST}")
-    private String redistHost;
-    @Value("${MY_REDIS_PORT}")
-    private String redisPort;
-    @Value("${MY_REDIS_PASSWORD}")
-    private String redistPassword;
+    private final JdbcClient jdbcClient;
+
+    public DemoController(DataSource ds){
+        jdbcClient = JdbcClient.create(ds);
+    }
 
     @GetMapping("/")
-    public String index() {
-        return String.format("Redis Host: %s, Redist Port: %s, Redis Password: %s", redistHost, redisPort, redistPassword);
+    public String index() {        
+        return String.format("Hello World %s", jdbcClient.sql("select current_timestamp").query().singleValue());
     }
 }
