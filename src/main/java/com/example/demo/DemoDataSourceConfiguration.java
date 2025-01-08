@@ -7,6 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 
@@ -16,13 +17,25 @@ import com.zaxxer.hikari.HikariDataSource;
 public class DemoDataSourceConfiguration {
 
     @Bean
+    @Primary
     @ConfigurationProperties("app.datasource.demo")
-    public DataSource demoDataSource() {
+    public DataSource firstDataSource() {
         return DataSourceBuilder.create().type(HikariDataSource.class).build();
     }
 
     @Bean
-    public PlatformTransactionManager demoTransactionManager(@Qualifier("demoDataSource") DataSource ds) {
+    public PlatformTransactionManager firstTransactionManager(@Qualifier("firstDataSource") DataSource ds) {
+        return new DataSourceTransactionManager(ds);
+    }
+
+    @Bean
+    @ConfigurationProperties("app.datasource.demo")
+    public DataSource secondDataSource() {
+        return DataSourceBuilder.create().type(HikariDataSource.class).build();
+    }
+
+    @Bean
+    public PlatformTransactionManager secondTransaction2Manager(@Qualifier("secondDataSource") DataSource ds) {
         return new DataSourceTransactionManager(ds);
     }
 }

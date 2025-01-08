@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -15,7 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @Component
 public class DemoFilter extends OncePerRequestFilter {
 
-    public DemoFilter(DataSource ds){        
+    public DemoFilter(@Qualifier("firstDataSource") DataSource ds){        
     }
 
     @Override

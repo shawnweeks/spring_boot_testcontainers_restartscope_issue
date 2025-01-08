@@ -11,9 +11,11 @@ public class TestBeanPostProcessor  implements BeanFactoryPostProcessor {
 
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-        BeanDefinition beanDefinition = beanFactory.getBeanDefinition("demoDataSource");        
+        BeanDefinition firstBeanDefinition = beanFactory.getBeanDefinition("firstDataSource");        
+        BeanDefinition secondBeanDefinition = beanFactory.getBeanDefinition("secondDataSource");        
         // This used to work and I've also tried with dynamicPropertyRegistrar
-        beanDefinition.setDependsOn("dynamicPropertyRegistry");
+        firstBeanDefinition.setDependsOn("dynamicPropertyRegistry");
+        secondBeanDefinition.setDependsOn("dynamicPropertyRegistry");
     }
 
 }
